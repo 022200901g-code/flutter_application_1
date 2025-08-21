@@ -1,45 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../viewmodel/counter_viewmodel.dart';
 
-class CounterView extends StatelessWidget {
-  const CounterView({super.key});
+class CounterViewTwo extends StatefulWidget {
+  const CounterViewTwo({super.key});
+
+  @override
+  State<CounterViewTwo> createState() => _CounterViewTwoState();
+}
+
+class _CounterViewTwoState extends State<CounterViewTwo> {
+  int counter = 0;
+  void increment() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      counter--;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final counterViewModel = Provider.of<CounterViewModel>(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Contador MVVM')),
+      appBar: AppBar(title: const Text("Counter View 2")),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Contador: ${counterViewModel.counter}',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: counterViewModel.decrement,
-                  child: const Icon(Icons.remove),
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: counterViewModel.reset,
-                  child: const Icon(Icons.refresh),
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: counterViewModel.increment,
-                  child: const Icon(Icons.add),
-                ),
-              ],
-            ),
-          ],
+        child: Text(
+          "Contador 2: $counter",
+          style: const TextStyle(fontSize: 28),
         ),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: "btn3",
+            onPressed: increment,
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 12),
+          FloatingActionButton(
+            heroTag: "btn4",
+            onPressed: decrement,
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
